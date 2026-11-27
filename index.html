@@ -1,0 +1,211 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>SEL26 명장면 판정</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap">
+<style>
+/* Layout: one narrow reading column (phone first); list of moments, tap opens one moment as a full card stack */
+:root {
+  --bg: #eef0f4; --surface: #ffffff; --ink: #161a23; --mute: #5d6474; --line: #d9dce4;
+  --gold: #9a6b12; --gold-soft: #f6ecd6; --blue: #2457c5; --red: #b8332b; --ok: #1f7a4a; --warn: #8a5300; --warn-bg: #fbf0dc;
+  --font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1218; --surface: #181c25; --ink: #e8eaf0; --mute: #9aa1b2; --line: #2a303c;
+  --gold: #e0b45a; --gold-soft: #2c2412; --blue: #86a8ff; --red: #ff8d84; --ok: #6fd39c; --warn: #f2bd66; --warn-bg: #2e2410; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1218; --surface: #181c25; --ink: #e8eaf0; --mute: #9aa1b2; --line: #2a303c;
+  --gold: #e0b45a; --gold-soft: #2c2412; --blue: #86a8ff; --red: #ff8d84; --ok: #6fd39c; --warn: #f2bd66; --warn-bg: #2e2410; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font); }
+.wrap { max-width: 640px; margin: 0 auto; padding-block: 18px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 14px; }
+h1 { font-size: 22px; line-height: 1.3; margin: 0; text-wrap: balance; }
+.lede { color: var(--mute); margin: 0; }
+.eyebrow { font-size: 12px; letter-spacing: .06em; color: var(--gold); font-weight: 600; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 8px; min-width: 0; }
+.card h3 { margin: 0; font-size: 12px; letter-spacing: .04em; color: var(--mute); font-weight: 600; }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
+.warn { background: var(--warn-bg); border-color: transparent; color: var(--warn); }
+.who { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+input[type=text], textarea { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%; }
+.who input { flex: 1 1 160px; width: auto; }
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.tab { flex: none; font: inherit; font-size: 14px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.tab[aria-pressed=true] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--gold); width: 0; }
+.list { display: grid; gap: 8px; }
+.item { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; text-align: left; width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; cursor: pointer; }
+.item .t { font-variant-numeric: tabular-nums; color: var(--mute); font-size: 13px; line-height: 1.3; }
+.item .h { min-width: 0; font-weight: 600; }
+.item .h small { display: block; font-weight: 400; color: var(--mute); font-size: 13px; }
+.pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; border: 1px solid var(--line); color: var(--mute); }
+.pill.yes { color: var(--ok); border-color: var(--ok); } .pill.no, .pill.error { color: var(--red); border-color: var(--red); } .pill.weak { color: var(--gold); border-color: var(--gold); }
+.pill.flag { color: var(--warn); border-color: transparent; background: var(--warn-bg); }
+video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 10px; display: block; }
+.vnote { font-size: 13px; color: var(--mute); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+button.small { font: inherit; font-size: 13px; padding: 5px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.choices.three { grid-template-columns: repeat(3, 1fr); }
+.choice { font: inherit; padding: 12px 8px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; min-height: 48px; }
+.choice[aria-pressed=true] { border-color: var(--gold); background: var(--gold-soft); box-shadow: inset 0 0 0 1px var(--gold); font-weight: 600; }
+.bar { display: flex; gap: 8px; }
+.bar button { flex: 1; font: inherit; padding: 13px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.bar .primary { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 600; flex: 2; }
+.status { font-size: 13px; color: var(--mute); min-height: 1.2em; }
+.others { font-size: 13px; color: var(--mute); }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+pre.copy { white-space: pre-wrap; word-break: break-all; font-size: 12px; background: var(--bg); border-radius: 8px; padding: 10px; margin: 0; max-height: 200px; overflow: auto; }
+</style>
+<style>body{margin:0}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style></head><body><div class="wrap" id="app">
+  <header id="intro" style="display:grid;gap:6px">
+    <div class="eyebrow">2026 UPbit × SNU 공대롤드컵 결승 · AI 하이라이트 연구</div>
+    <h1>SEL26 명장면 판정</h1>
+    <p class="lede">AI가 하이라이트일 수 있다고 고른 52개 순간입니다. AI가 고른 이유를 먼저 읽고, 약 12초짜리 영상을 본 뒤 진짜 명장면인지 골라 주세요. 정답은 없습니다. 여러분의 판단이 AI가 배울 기준이 됩니다.</p>
+  </header>
+  <section class="card" id="nameCard">
+    <h3>이름 (판정에 함께 남습니다)</h3>
+    <div class="who"><input type="text" id="nick" maxlength="20" placeholder="예: 민수" autocomplete="nickname"></div>
+    <div class="status" id="saveMode"></div>
+  </section>
+  <section id="listView" style="display:grid;gap:10px">
+    <div class="top"><span id="count" class="others"></span></div>
+    <div class="progress"><i id="prog"></i></div>
+    <div class="tabs" role="group" aria-label="종류">
+      <button class="tab" data-k="all" aria-pressed="true">전체</button>
+      <button class="tab" data-k="flash" aria-pressed="false">예상 밖 점멸</button>
+      <button class="tab" data-k="danger" aria-pressed="false">위험에서 생존</button>
+      <button class="tab" data-k="trade" aria-pressed="false">킬 없는 딜교환</button>
+      <button class="tab" data-k="todo" aria-pressed="false">안 본 것</button>
+    </div>
+    <div class="list" id="list"></div>
+    <section class="card" id="copyBox">
+      <h3>판정 결과 보내기</h3>
+      <p style="margin:0;font-size:14px">판정은 이 휴대폰에 저장됩니다. 다 보셨으면(중간에도 괜찮아요) 아래 버튼으로 카톡에 보내 주세요.</p>
+      <div class="bar"><button class="primary" id="shareBtn">카톡 등으로 보내기</button><button id="copyBtn">복사</button></div>
+      <pre class="copy" id="copyText" hidden></pre>
+    </section>
+  </section>
+  <section id="detail" hidden style="display:grid;gap:12px"></section>
+</div>
+<script src="config.js"></script>
+<script>
+const DATA = [{"id": "flash_8470368540_2365_Leona", "kind": "flash", "no": 1, "t": 2365.0, "score": 8.91, "headline": "레오나의 점멸 — 이 상황에서 점멸할 확률 0.01% (매우 드묾)", "situation": "가장 가까운 적이 3462 거리 (멀리 있음), 체력 100%, 주변(1200) 적 0명 · 아군 1명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["적과 3462 거리에서 체력 100%", "가장 가까운 적이 3462 거리 (멀리 있음)", "우리 진영 쪽"], "after": "10초 뒤 생존(체력 100%)", "micro": null, "checks": ["가까운 적이 2500 넘게 떨어져 있음: 싸움 중 점멸이 아니라 이동용 점멸이거나 점멸 읽기 오류일 수 있음", "정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470368540_2365_Leona.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470368540_1974_Leona", "kind": "flash", "no": 1, "t": 1974.0, "score": 8.69, "headline": "레오나의 점멸 — 이 상황에서 점멸할 확률 0.02% (매우 드묾)", "situation": "가장 가까운 적이 3112 거리 (멀리 있음), 체력 100%, 주변(1200) 적 0명 · 아군 1명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["적과 3112 거리에서 체력 100%", "가장 가까운 적이 3112 거리 (멀리 있음)", "체력 100%"], "after": "10초 뒤 생존(체력 100%)", "micro": null, "checks": ["가까운 적이 2500 넘게 떨어져 있음: 싸움 중 점멸이 아니라 이동용 점멸이거나 점멸 읽기 오류일 수 있음", "정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470368540_1974_Leona.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470368540_989_Leona", "kind": "flash", "no": 1, "t": 989.0, "score": 7.53, "headline": "레오나의 점멸 — 이 상황에서 점멸할 확률 0.05% (매우 드묾)", "situation": "가장 가까운 적이 1443 거리, 체력 100%, 주변(1200) 적 0명 · 아군 3명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["수적 우세에 체력 100%", "체력 100%", "주변(1200) 적 0명 · 아군 3명"], "after": "10초 뒤 생존(체력 100%)", "micro": "정밀 재생: 스킬 0회, 체력 87%→86%, 점멸  (184 이동)", "checks": [], "clip": "clips/flash_8470368540_989_Leona.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470508306_1697_KSante", "kind": "flash", "no": 3, "t": 1697.0, "score": 7.38, "headline": "크산테의 점멸 — 이 상황에서 점멸할 확률 0.06% (매우 드묾)", "situation": "가장 가까운 적이 4000 거리 (멀리 있음), 체력 45%, 주변(1200) 적 0명 · 아군 4명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["가장 가까운 적이 4000 거리 (멀리 있음)", "수적 우세에 체력 45%", "주변(1200) 적 0명 · 아군 4명"], "after": "10초 뒤 생존(체력 0%)", "micro": "정밀 재생: 스킬 4회, 체력 37%→38%, 순간이동  (32 이동), 점멸  (60 이동)", "checks": ["가까운 적이 2500 넘게 떨어져 있음: 싸움 중 점멸이 아니라 이동용 점멸이거나 점멸 읽기 오류일 수 있음"], "clip": "clips/flash_8470508306_1697_KSante.mp4", "at": 6.0, "src": "ending1.mp4"}, {"id": "flash_8470508306_721_Mel", "kind": "flash", "no": 3, "t": 721.0, "score": 6.79, "headline": "멜의 점멸 — 이 상황에서 점멸할 확률 0.11% (매우 드묾)", "situation": "가장 가까운 적이 810 거리, 체력 100%, 주변(1200) 적 1명 · 아군 3명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["수적 우세에 체력 100%", "12분 라인전 시기", "체력 100%"], "after": "+5초 갈리오 처치에 관여, 10초 뒤 생존(체력 100%)", "micro": "정밀 재생: 스킬 2회, 체력 89%→89%, 점멸 적 쪽으로 (676 이동)", "checks": [], "clip": "clips/flash_8470508306_721_Mel.mp4", "at": 6.0, "src": "fight2.mp4"}, {"id": "flash_8470368540_787_Xayah", "kind": "flash", "no": 1, "t": 787.0, "score": 6.73, "headline": "자야의 점멸 — 이 상황에서 점멸할 확률 0.12% (매우 드묾)", "situation": "가장 가까운 적이 851 거리, 체력 98%, 주변(1200) 적 1명 · 아군 0명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["13분 라인전 시기", "최근 3초 동안 맞지 않음", "체력 98%"], "after": "10초 뒤 생존(체력 100%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470368540_787_Xayah.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470577417_1239_Sejuani", "kind": "flash", "no": 4, "t": 1239.0, "score": 6.7, "headline": "세주아니의 점멸 — 이 상황에서 점멸할 확률 0.12% (매우 드묾)", "situation": "가장 가까운 적이 1562 거리, 체력 100%, 주변(1200) 적 0명 · 아군 0명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["주변(1200) 적 0명 · 아군 0명", "체력 100%"], "after": "10초 뒤 생존(체력 91%)", "micro": "정밀 재생: 스킬 2회, 체력 92%→92%, 점멸 적 쪽으로 (277 이동)", "checks": [], "clip": "clips/flash_8470577417_1239_Sejuani.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470368540_581_Vi", "kind": "flash", "no": 1, "t": 581.0, "score": 6.52, "headline": "바이의 점멸 — 이 상황에서 점멸할 확률 0.15% (매우 드묾)", "situation": "가장 가까운 적이 928 거리, 체력 100%, 주변(1200) 적 1명 · 아군 1명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["10분 라인전 시기", "체력 100%", "가까운 적 점멸 있음"], "after": "+4초 제이스 처치에 관여, 10초 뒤 생존(체력 50%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470368540_581_Vi.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470508306_1270_JarvanIV", "kind": "flash", "no": 3, "t": 1270.0, "score": 6.51, "headline": "자르반 4세의 점멸 — 이 상황에서 점멸할 확률 0.15% (매우 드묾)", "situation": "가장 가까운 적이 1084 거리, 체력 100%, 주변(1200) 적 1명 · 아군 2명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["가까운 적 체력 100%", "수적 우세에 체력 100%", "체력 100%"], "after": "+8초 자르반 4세 사망(갈리오), +9초 루시안 처치에 관여", "micro": "정밀 재생: 스킬 7회, 체력 90%→7%, 점멸 적 쪽으로 (780 이동)", "checks": [], "clip": "clips/flash_8470508306_1270_JarvanIV.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470577417_2061_Braum", "kind": "flash", "no": 4, "t": 2061.0, "score": 6.24, "headline": "브라움의 점멸 — 이 상황에서 점멸할 확률 0.19% (매우 드묾)", "situation": "가장 가까운 적이 909 거리, 체력 100%, 주변(1200) 적 1명 · 아군 1명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["체력 100%"], "after": "+7초 아펠리오스 처치에 관여, 10초 뒤 생존(체력 100%), 주변 다른 킬 1건", "micro": "정밀 재생: 스킬 4회, 체력 87%→93%, 회복  (198 이동), 점멸 적 쪽으로 (566 이동)", "checks": [], "clip": "clips/flash_8470577417_2061_Braum.mp4", "at": 6.0, "src": "fight8.mp4"}, {"id": "flash_8470577417_1422_TwistedFate", "kind": "flash", "no": 4, "t": 1422.0, "score": 6.04, "headline": "트위스티드 페이트의 점멸 — 이 상황에서 점멸할 확률 0.24% (매우 드묾)", "situation": "가장 가까운 적이 701 거리, 체력 99%, 주변(1200) 적 1명 · 아군 0명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["주변(1200) 적 1명 · 아군 0명", "체력 99%"], "after": "10초 뒤 생존(체력 98%)", "micro": "정밀 재생: 스킬 2회, 체력 93%→89%, 점멸 적에게서 멀어지며 (594 이동)", "checks": [], "clip": "clips/flash_8470577417_1422_TwistedFate.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470508306_719_Swain", "kind": "flash", "no": 3, "t": 719.0, "score": 5.45, "headline": "스웨인의 점멸 — 이 상황에서 점멸할 확률 0.43% (매우 드묾)", "situation": "가장 가까운 적이 386 거리 (붙어 있음), 체력 72%, 주변(1200) 적 1명 · 아군 1명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["12분 라인전 시기"], "after": "+7초 갈리오 처치에 관여, 10초 뒤 생존(체력 90%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470508306_719_Swain.mp4", "at": 6.0, "src": "fight2.mp4"}, {"id": "flash_8470577417_729_Braum", "kind": "flash", "no": 4, "t": 729.0, "score": 5.34, "headline": "브라움의 점멸 — 이 상황에서 점멸할 확률 0.48% (매우 드묾)", "situation": "가장 가까운 적이 496 거리 (붙어 있음), 체력 100%, 주변(1200) 적 2명 · 아군 1명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["12분 라인전 시기", "체력 100%"], "after": "10초 뒤 생존(체력 92%), 주변 다른 킬 1건", "micro": "정밀 재생: 스킬 7회, 체력 92%→79%, 점멸 적에게서 멀어지며 (509 이동)", "checks": [], "clip": "clips/flash_8470577417_729_Braum.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470508306_1280_MissFortune", "kind": "flash", "no": 3, "t": 1280.0, "score": 5.31, "headline": "미스 포츈의 점멸 — 이 상황에서 점멸할 확률 0.49% (매우 드묾)", "situation": "가장 가까운 적이 714 거리, 체력 55%, 주변(1200) 적 2명 · 아군 0명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["최근 3초 동안 맞지 않음", "가까운 적 체력 100%"], "after": "+-1초 루시안 처치에 관여, 10초 뒤 생존(체력 60%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470508306_1280_MissFortune.mp4", "at": 6.0, "src": "fight4.mp4"}, {"id": "flash_8470577417_973_Ziggs", "kind": "flash", "no": 4, "t": 973.0, "score": 5.23, "headline": "직스의 점멸 — 이 상황에서 점멸할 확률 0.53% (매우 드묾)", "situation": "가장 가까운 적이 613 거리 (붙어 있음), 체력 95%, 주변(1200) 적 1명 · 아군 0명, 최근 3초 체력 손실 5%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 1명 · 아군 0명"], "after": "10초 뒤 생존(체력 30%)", "micro": "정밀 재생: 스킬 6회, 체력 86%→26%, 점멸 적에게서 멀어지며 (547 이동)", "checks": [], "clip": "clips/flash_8470577417_973_Ziggs.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470577417_1241_Renata", "kind": "flash", "no": 4, "t": 1241.0, "score": 5.22, "headline": "레나타 글라스크의 점멸 — 이 상황에서 점멸할 확률 0.54% (매우 드묾)", "situation": "가장 가까운 적이 832 거리, 체력 65%, 주변(1200) 적 1명 · 아군 1명, 최근 3초 체력 손실 10%, 적 포탑과 떨어짐", "why": [], "after": "10초 뒤 생존(체력 30%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470577417_1241_Renata.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470446468_748_Nautilus", "kind": "flash", "no": 2, "t": 748.0, "score": 5.21, "headline": "노틸러스의 점멸 — 이 상황에서 점멸할 확률 0.55% (매우 드묾)", "situation": "가장 가까운 적이 617 거리 (붙어 있음), 체력 100%, 주변(1200) 적 2명 · 아군 1명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["12분 라인전 시기", "체력 100%"], "after": "10초 뒤 생존(체력 65%)", "micro": "정밀 재생: 스킬 7회, 체력 93%→66%, 점멸 적 쪽으로 (400 이동)", "checks": [], "clip": "clips/flash_8470446468_748_Nautilus.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470508306_1283_Milio", "kind": "flash", "no": 3, "t": 1283.0, "score": 4.91, "headline": "밀리오의 점멸 — 이 상황에서 점멸할 확률 0.74% (매우 드묾)", "situation": "가장 가까운 적이 915 거리, 체력 22%, 주변(1200) 적 1명 · 아군 2명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["가까운 적 체력 100%"], "after": "+10초 스웨인 처치에 관여, 10초 뒤 생존(체력 25%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470508306_1283_Milio.mp4", "at": 6.0, "src": "fight4.mp4"}, {"id": "flash_8470368540_157_Jhin", "kind": "flash", "no": 1, "t": 157.0, "score": 4.87, "headline": "진의 점멸 — 이 상황에서 점멸할 확률 0.77% (매우 드묾)", "situation": "가장 가까운 적이 850 거리, 체력 37%, 주변(1200) 적 2명 · 아군 1명, 최근 3초 체력 손실 21%, 적 포탑과 떨어짐", "why": ["적 2명 곁에서 3초간 체력 21% 잃음", "3분 라인전 시기", "가까운 적 체력 100%"], "after": "10초 뒤 생존(체력 48%)", "micro": "정밀 재생: 스킬 4회, 체력 64%→34%, 점멸  (199 이동)", "checks": [], "clip": "clips/flash_8470368540_157_Jhin.mp4", "at": 7.0, "src": "new"}, {"id": "flash_8470508306_511_KSante", "kind": "flash", "no": 3, "t": 511.0, "score": 4.72, "headline": "크산테의 점멸 — 이 상황에서 점멸할 확률 0.89% (매우 드묾)", "situation": "가장 가까운 적이 381 거리 (붙어 있음), 체력 64%, 주변(1200) 적 1명 · 아군 3명, 최근 3초 체력 손실 13%, 적 포탑과 떨어짐", "why": ["9분 라인전 시기", "수적 우세에 체력 64%", "적 1명 곁에서 3초간 체력 13% 잃음"], "after": "+0초 자르반 4세 처치에 관여, 10초 뒤 생존(체력 33%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/flash_8470508306_511_KSante.mp4", "at": 6.0, "src": "fight1.mp4"}, {"id": "danger_8470368540_3305_Vi", "kind": "danger", "no": 1, "t": 3305.0, "score": 0.994, "headline": "바이 — 5초 안에 죽을 확률 99%였는데 살아남음", "situation": "가장 가까운 적이 54 거리 (붙어 있음), 체력 4%, 주변(1200) 적 4명 · 아군 2명, 최근 3초 체력 손실 61%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 61%", "체력 4%", "주변(1200) 적 4명 · 아군 2명"], "after": "+5초 리산드라 처치에 관여, +6초 라칸 처치에 관여, +7초 자야 처치에 관여, 10초 뒤 생존(체력 22%), 주변 다른 킬 1건", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470368540_3305_Vi.mp4", "at": 6.0, "src": "fight8.mp4"}, {"id": "danger_8470368540_2486_Ambessa", "kind": "danger", "no": 1, "t": 2486.0, "score": 0.986, "headline": "암베사 — 5초 안에 죽을 확률 99%였는데 살아남음", "situation": "가장 가까운 적이 99 거리 (붙어 있음), 체력 2%, 주변(1200) 적 4명 · 아군 0명, 최근 3초 체력 손실 59%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 59%", "체력 2%", "주변(1200) 적 4명 · 아군 0명"], "after": "+-0초 자야 처치에 관여, 10초 뒤 생존(체력 44%), 주변 다른 킬 1건", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470368540_2486_Ambessa.mp4", "at": 6.0, "src": "fight7.mp4"}, {"id": "danger_8470368540_3310_Viego", "kind": "danger", "no": 1, "t": 3310.0, "score": 0.97, "headline": "비에고 — 5초 안에 죽을 확률 97%였는데 살아남음", "situation": "가장 가까운 적이 478 거리 (붙어 있음), 체력 0%, 주변(1200) 적 4명 · 아군 1명, 최근 3초 체력 손실 55%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 55%", "체력 0%", "주변(1200) 적 4명 · 아군 1명"], "after": "10초 뒤 생존(체력 50%), 주변 다른 킬 4건", "micro": null, "checks": ["체력이 0%로 읽혔는데 살아 있음: 체력 막대 읽기 오류일 수 있음", "정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470368540_3310_Viego.mp4", "at": 6.0, "src": "fight8.mp4"}, {"id": "danger_8470368540_2218_Vi", "kind": "danger", "no": 1, "t": 2218.0, "score": 0.962, "headline": "바이 — 5초 안에 죽을 확률 96%였는데 살아남음", "situation": "가장 가까운 적이 138 거리 (붙어 있음), 체력 0%, 주변(1200) 적 5명 · 아군 0명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["체력 0%", "주변(1200) 적 5명 · 아군 0명", "가장 가까운 적이 138 거리 (붙어 있음)"], "after": "특별한 일 없음", "micro": "정밀 재생: 스킬 4회, 체력 92%→18%", "checks": ["체력이 0%로 읽혔는데 살아 있음: 체력 막대 읽기 오류일 수 있음"], "clip": "clips/danger_8470368540_2218_Vi.mp4", "at": 7.0, "src": "new"}, {"id": "danger_8470446468_1594_Zeri", "kind": "danger", "no": 2, "t": 1594.0, "score": 0.962, "headline": "제리 — 5초 안에 죽을 확률 96%였는데 살아남음", "situation": "가장 가까운 적이 118 거리 (붙어 있음), 체력 0%, 주변(1200) 적 4명 · 아군 2명, 최근 3초 체력 손실 77%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 77%", "체력 0%", "주변(1200) 적 4명 · 아군 2명"], "after": "10초 뒤 생존(체력 57%)", "micro": "정밀 재생: 스킬 7회, 체력 88%→36%, 방어막  (7 이동), 점멸 적에게서 멀어지며 (445 이동)", "checks": ["체력이 0%로 읽혔는데 살아 있음: 체력 막대 읽기 오류일 수 있음"], "clip": "clips/danger_8470446468_1594_Zeri.mp4", "at": 6.0, "src": "fight8.mp4"}, {"id": "danger_8470446468_1280_Skarner", "kind": "danger", "no": 2, "t": 1280.0, "score": 0.96, "headline": "스카너 — 5초 안에 죽을 확률 96%였는데 살아남음", "situation": "가장 가까운 적이 573 거리 (붙어 있음), 체력 16%, 주변(1200) 적 5명 · 아군 0명, 최근 3초 체력 손실 74%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 74%", "주변(1200) 적 5명 · 아군 0명", "체력 16%"], "after": "10초 뒤 생존(체력 12%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470446468_1280_Skarner.mp4", "at": 7.0, "src": "new"}, {"id": "danger_8470368540_3308_Ambessa", "kind": "danger", "no": 1, "t": 3308.0, "score": 0.95, "headline": "암베사 — 5초 안에 죽을 확률 95%였는데 살아남음", "situation": "가장 가까운 적이 217 거리 (붙어 있음), 체력 37%, 주변(1200) 적 5명 · 아군 3명, 최근 3초 체력 손실 31%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 5명 · 아군 3명", "최근 3초 체력 손실 31%", "체력 37%"], "after": "+2초 리산드라 처치에 관여, +3초 제이스 처치에 관여, +3초 라칸 처치에 관여, +4초 자야 처치에 관여, 10초 뒤 생존(체력 78%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470368540_3308_Ambessa.mp4", "at": 6.0, "src": "fight8.mp4"}, {"id": "danger_8470368540_1605_Lissandra", "kind": "danger", "no": 1, "t": 1605.0, "score": 0.941, "headline": "리산드라 — 5초 안에 죽을 확률 94%였는데 살아남음", "situation": "가장 가까운 적이 187 거리 (붙어 있음), 체력 42%, 주변(1200) 적 4명 · 아군 0명, 최근 3초 체력 손실 58%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 58%", "주변(1200) 적 4명 · 아군 0명", "체력 42%"], "after": "10초 뒤 생존(체력 48%)", "micro": "정밀 재생: 스킬 7회, 체력 90%→41%, 점멸  (79 이동), 점멸 적에게서 멀어지며 (445 이동)", "checks": [], "clip": "clips/danger_8470368540_1605_Lissandra.mp4", "at": 7.0, "src": "new"}, {"id": "danger_8470446468_1026_Orianna", "kind": "danger", "no": 2, "t": 1026.0, "score": 0.907, "headline": "오리아나 — 5초 안에 죽을 확률 91%였는데 살아남음", "situation": "가장 가까운 적이 198 거리 (붙어 있음), 체력 22%, 주변(1200) 적 3명 · 아군 3명, 최근 3초 체력 손실 77%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 77%", "체력 22%", "주변(1200) 적 3명 · 아군 3명"], "after": "+2초 나서스 처치에 관여, 10초 뒤 생존(체력 32%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470446468_1026_Orianna.mp4", "at": 7.0, "src": "new"}, {"id": "danger_8470577417_1547_Jax", "kind": "danger", "no": 4, "t": 1547.0, "score": 0.903, "headline": "잭스 — 5초 안에 죽을 확률 90%였는데 살아남음", "situation": "가장 가까운 적이 180 거리 (붙어 있음), 체력 34%, 주변(1200) 적 4명 · 아군 1명, 최근 3초 체력 손실 46%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 46%", "주변(1200) 적 4명 · 아군 1명", "체력 34%"], "after": "+-0초 그웬 처치에 관여, +2초 레나타 글라스크 처치에 관여, 10초 뒤 생존(체력 45%), 주변 다른 킬 1건", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470577417_1547_Jax.mp4", "at": 6.0, "src": "fight6.mp4"}, {"id": "danger_8470577417_976_Ziggs", "kind": "danger", "no": 4, "t": 976.0, "score": 0.894, "headline": "직스 — 5초 안에 죽을 확률 89%였는데 살아남음", "situation": "가장 가까운 적이 442 거리 (붙어 있음), 체력 23%, 주변(1200) 적 3명 · 아군 2명, 최근 3초 체력 손실 72%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 72%", "체력 23%", "주변(1200) 적 3명 · 아군 2명"], "after": "10초 뒤 생존(체력 30%)", "micro": "정밀 재생: 스킬 6회, 체력 86%→26%, 점멸 적에게서 멀어지며 (547 이동)", "checks": [], "clip": "clips/danger_8470577417_976_Ziggs.mp4", "at": 6.0, "src": "fight3.mp4"}, {"id": "danger_8470368540_3305_Ahri", "kind": "danger", "no": 1, "t": 3305.0, "score": 0.888, "headline": "아리 — 5초 안에 죽을 확률 89%였는데 살아남음", "situation": "가장 가까운 적이 260 거리 (붙어 있음), 체력 60%, 주변(1200) 적 4명 · 아군 3명, 최근 3초 체력 손실 27%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 4명 · 아군 3명", "최근 3초 체력 손실 27%", "55분"], "after": "+5초 리산드라 처치에 관여, +6초 제이스 처치에 관여, +6초 라칸 처치에 관여, +7초 자야 처치에 관여, 10초 뒤 생존(체력 42%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470368540_3305_Ahri.mp4", "at": 6.0, "src": "fight8.mp4"}, {"id": "danger_8470368540_1711_Ambessa", "kind": "danger", "no": 1, "t": 1711.0, "score": 0.87, "headline": "암베사 — 5초 안에 죽을 확률 87%였는데 살아남음", "situation": "가장 가까운 적이 265 거리 (붙어 있음), 체력 0%, 주변(1200) 적 3명 · 아군 0명, 최근 3초 체력 손실 21%, 적 포탑과 떨어짐", "why": ["체력 0%", "주변(1200) 적 3명 · 아군 0명", "최근 3초 체력 손실 21%"], "after": "주변 다른 킬 1건", "micro": "정밀 재생: 스킬 13회, 체력 94%→21%, 점멸  (156 이동)", "checks": ["체력이 0%로 읽혔는데 살아 있음: 체력 막대 읽기 오류일 수 있음"], "clip": "clips/danger_8470368540_1711_Ambessa.mp4", "at": 7.0, "src": "new"}, {"id": "danger_8470577417_1545_Sejuani", "kind": "danger", "no": 4, "t": 1545.0, "score": 0.857, "headline": "세주아니 — 5초 안에 죽을 확률 86%였는데 살아남음", "situation": "가장 가까운 적이 137 거리 (붙어 있음), 체력 73%, 주변(1200) 적 5명 · 아군 2명, 최근 3초 체력 손실 27%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 5명 · 아군 2명", "최근 3초 체력 손실 27%", "가장 가까운 적이 137 거리 (붙어 있음)"], "after": "+2초 그웬 처치에 관여, +4초 레나타 글라스크 처치에 관여, +9초 트위스티드 페이트 처치에 관여, 10초 뒤 생존(체력 30%)", "micro": "정밀 재생: 스킬 5회, 체력 86%→39%", "checks": [], "clip": "clips/danger_8470577417_1545_Sejuani.mp4", "at": 6.0, "src": "fight6.mp4"}, {"id": "danger_8470508306_1558_KSante", "kind": "danger", "no": 3, "t": 1558.0, "score": 0.84, "headline": "크산테 — 5초 안에 죽을 확률 84%였는데 살아남음", "situation": "가장 가까운 적이 170 거리 (붙어 있음), 체력 40%, 주변(1200) 적 4명 · 아군 0명, 최근 3초 체력 손실 36%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 4명 · 아군 0명", "최근 3초 체력 손실 36%", "체력 40%"], "after": "+2초 아트록스 처치에 관여, +7초 자르반 4세 처치에 관여, 10초 뒤 생존(체력 35%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470508306_1558_KSante.mp4", "at": 6.0, "src": "fight5.mp4"}, {"id": "danger_8470446468_1794_Nasus", "kind": "danger", "no": 2, "t": 1794.0, "score": 0.816, "headline": "나서스 — 5초 안에 죽을 확률 82%였는데 살아남음", "situation": "가장 가까운 적이 327 거리 (붙어 있음), 체력 44%, 주변(1200) 적 5명 · 아군 4명, 최근 3초 체력 손실 31%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 5명 · 아군 4명", "최근 3초 체력 손실 31%", "체력 44%"], "after": "10초 뒤 생존(체력 55%)", "micro": "정밀 재생: 스킬 7회, 체력 66%→47%, 점멸 적에게서 멀어지며 (566 이동)", "checks": [], "clip": "clips/danger_8470446468_1794_Nasus.mp4", "at": 7.0, "src": "new"}, {"id": "danger_8470508306_1063_Swain", "kind": "danger", "no": 3, "t": 1063.0, "score": 0.809, "headline": "스웨인 — 5초 안에 죽을 확률 81%였는데 살아남음", "situation": "가장 가까운 적이 470 거리 (붙어 있음), 체력 65%, 주변(1200) 적 5명 · 아군 0명, 최근 3초 체력 손실 31%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 5명 · 아군 0명", "최근 3초 체력 손실 31%", "수적 열세에 체력 65%"], "after": "+2초 밀리오 처치에 관여, +6초 루시안 처치에 관여, 10초 뒤 생존(체력 15%)", "micro": "정밀 재생: 스킬 9회, 체력 91%→17%", "checks": [], "clip": "clips/danger_8470508306_1063_Swain.mp4", "at": 6.0, "src": "fight3.mp4"}, {"id": "danger_8470446468_1815_MonkeyKing", "kind": "danger", "no": 2, "t": 1815.0, "score": 0.798, "headline": "오공 — 5초 안에 죽을 확률 80%였는데 살아남음", "situation": "가장 가까운 적이 268 거리 (붙어 있음), 체력 65%, 주변(1200) 적 5명 · 아군 2명, 최근 3초 동안 맞지 않음, 적 포탑과 떨어짐", "why": ["주변(1200) 적 5명 · 아군 2명", "가장 가까운 적이 268 거리 (붙어 있음)", "체력 65%"], "after": "+8초 카밀 처치에 관여, +10초 스카너 처치에 관여, 10초 뒤 생존(체력 75%), 주변 다른 킬 1건", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470446468_1815_MonkeyKing.mp4", "at": 6.0, "src": "fight9.mp4"}, {"id": "danger_8470577417_1234_Aphelios", "kind": "danger", "no": 4, "t": 1234.0, "score": 0.791, "headline": "아펠리오스 — 5초 안에 죽을 확률 79%였는데 살아남음", "situation": "가장 가까운 적이 566 거리 (붙어 있음), 체력 28%, 주변(1200) 적 3명 · 아군 1명, 최근 3초 체력 손실 46%, 적 포탑과 떨어짐", "why": ["최근 3초 체력 손실 46%", "체력 28%", "주변(1200) 적 3명 · 아군 1명"], "after": "10초 뒤 생존(체력 20%)", "micro": "정밀 재생: 스킬 7회, 체력 67%→18%, 방어막  (78 이동)", "checks": [], "clip": "clips/danger_8470577417_1234_Aphelios.mp4", "at": 7.0, "src": "new"}, {"id": "danger_8470577417_1793_Jax", "kind": "danger", "no": 4, "t": 1793.0, "score": 0.772, "headline": "잭스 — 5초 안에 죽을 확률 77%였는데 살아남음", "situation": "가장 가까운 적이 74 거리 (붙어 있음), 체력 62%, 주변(1200) 적 5명 · 아군 3명, 최근 3초 체력 손실 35%, 적 포탑과 떨어짐", "why": ["주변(1200) 적 5명 · 아군 3명", "최근 3초 체력 손실 35%", "가장 가까운 적이 74 거리 (붙어 있음)"], "after": "10초 뒤 생존(체력 35%)", "micro": null, "checks": ["정밀 재생(초당 9회) 구간 밖이라 1초 단위 데이터로만 판단함"], "clip": "clips/danger_8470577417_1793_Jax.mp4", "at": 6.0, "src": "fight7.mp4"}, {"id": "trade_8470368540_918_Ambessa", "kind": "trade", "no": 1, "t": 918.8, "score": 2.05, "headline": "암베사 vs 제이스 킬 없는 딜교환", "situation": "제이스 선공, 순손익 -90%, 스킬 17회, 공격 점멸 0", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "+0초 제이스 처치에 관여, 10초 뒤 생존(체력 100%)", "micro": null, "checks": ["구간 끝 무렵 킬이 났음: '킬 없는 딜교환'이 아니라 킬로 이어진 장면일 수 있음"], "clip": "clips/trade_8470368540_918_Ambessa.mp4", "at": 5.8, "src": "new"}, {"id": "trade_8470368540_1193_Ambessa", "kind": "trade", "no": 1, "t": 1193.45, "score": 1.73, "headline": "암베사 vs 제이스 킬 없는 딜교환", "situation": "제이스 선공, 순손익 -88%, 스킬 11회, 공격 점멸 0", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "+0초 제이스 처치에 관여, 10초 뒤 생존(체력 100%)", "micro": null, "checks": ["구간 끝 무렵 킬이 났음: '킬 없는 딜교환'이 아니라 킬로 이어진 장면일 수 있음"], "clip": "clips/trade_8470368540_1193_Ambessa.mp4", "at": 3.5, "src": "new"}, {"id": "trade_8470368540_824_Ambessa", "kind": "trade", "no": 1, "t": 824.2, "score": 1.46, "headline": "암베사 vs 제이스 킬 없는 딜교환", "situation": "암베사 선공, 순손익 +21%, 스킬 9회, 공격 점멸 1", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "+0초 제이스 처치에 관여, 10초 뒤 생존(체력 72%)", "micro": null, "checks": ["구간 끝 무렵 킬이 났음: '킬 없는 딜교환'이 아니라 킬로 이어진 장면일 수 있음"], "clip": "clips/trade_8470368540_824_Ambessa.mp4", "at": 6.2, "src": "new"}, {"id": "trade_8470446468_747_Nautilus", "kind": "trade", "no": 2, "t": 747.8, "score": 1.65, "headline": "노틸러스 vs 제리 킬 없는 딜교환", "situation": "제리 선공, 순손익 +15%, 스킬 20회, 공격 점멸 1", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "10초 뒤 생존(체력 68%)", "micro": null, "checks": [], "clip": "clips/trade_8470446468_747_Nautilus.mp4", "at": 6.5, "src": "new"}, {"id": "trade_8470446468_1814_Alistar", "kind": "trade", "no": 2, "t": 1814.8, "score": 1.61, "headline": "알리스타 vs 카이사 킬 없는 딜교환", "situation": "카이사 선공, 순손익 -46%, 스킬 17회, 공격 점멸 0", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "+2초 카밀 처치에 관여, +4초 스카너 처치에 관여, +7초 알리스타 사망(카이사), +8초 노틸러스 처치에 관여, 주변 다른 킬 1건", "micro": null, "checks": [], "clip": "clips/trade_8470446468_1814_Alistar.mp4", "at": 5.8, "src": "fight9.mp4"}, {"id": "trade_8470446468_1711_MonkeyKing", "kind": "trade", "no": 2, "t": 1711.4, "score": 1.54, "headline": "오공 vs 나서스 킬 없는 딜교환", "situation": "나서스 선공, 순손익 -84%, 스킬 8회, 공격 점멸 0", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "+0초 나서스 처치에 관여, 10초 뒤 생존(체력 100%)", "micro": null, "checks": ["구간 끝 무렵 킬이 났음: '킬 없는 딜교환'이 아니라 킬로 이어진 장면일 수 있음"], "clip": "clips/trade_8470446468_1711_MonkeyKing.mp4", "at": 3.4, "src": "new"}, {"id": "trade_8470508306_364_Galio", "kind": "trade", "no": 3, "t": 364.0, "score": 1.96, "headline": "갈리오 vs 스웨인 킬 없는 딜교환", "situation": "갈리오 선공, 순손익 -46%, 스킬 14회, 공격 점멸 1", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "10초 뒤 생존(체력 29%)", "micro": null, "checks": [], "clip": "clips/trade_8470508306_364_Galio.mp4", "at": 7.0, "src": "new"}, {"id": "trade_8470508306_885_KSante", "kind": "trade", "no": 3, "t": 885.7, "score": 1.75, "headline": "크산테 vs 미스 포츈 킬 없는 딜교환", "situation": "크산테 선공, 순손익 +5%, 스킬 18회, 공격 점멸 1", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "10초 뒤 생존(체력 44%)", "micro": null, "checks": [], "clip": "clips/trade_8470508306_885_KSante.mp4", "at": 6.5, "src": "new"}, {"id": "trade_8470508306_1270_JarvanIV", "kind": "trade", "no": 3, "t": 1270.3, "score": 1.66, "headline": "자르반 4세 vs 루시안 킬 없는 딜교환", "situation": "자르반 4세 선공, 순손익 -11%, 스킬 15회, 공격 점멸 1", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "+3초 자르반 4세 사망(갈리오), +4초 루시안 처치에 관여", "micro": null, "checks": [], "clip": "clips/trade_8470508306_1270_JarvanIV.mp4", "at": 6.5, "src": "new"}, {"id": "trade_8470577417_1239_Aphelios", "kind": "trade", "no": 4, "t": 1239.5, "score": 1.74, "headline": "아펠리오스 vs 세주아니 킬 없는 딜교환", "situation": "아펠리오스 선공, 순손익 -49%, 스킬 9회, 공격 점멸 1", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "10초 뒤 생존(체력 28%)", "micro": null, "checks": [], "clip": "clips/trade_8470577417_1239_Aphelios.mp4", "at": 6.5, "src": "new"}, {"id": "trade_8470577417_1790_Braum", "kind": "trade", "no": 4, "t": 1790.7, "score": 1.61, "headline": "브라움 vs 그라가스 킬 없는 딜교환", "situation": "그라가스 선공, 순손익 -46%, 스킬 17회, 공격 점멸 0", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "+7초 아펠리오스 처치에 관여, 10초 뒤 생존(체력 100%)", "micro": null, "checks": [], "clip": "clips/trade_8470577417_1790_Braum.mp4", "at": 6.0, "src": "fight7.mp4"}, {"id": "trade_8470577417_1215_Gragas", "kind": "trade", "no": 4, "t": 1215.8, "score": 1.58, "headline": "그라가스 vs 그웬 킬 없는 딜교환", "situation": "그라가스 선공, 순손익 -63%, 스킬 13회, 공격 점멸 0", "why": ["킬 없이 체력이 크게 오갔고 스킬·점멸 교환이 많음 (정밀 딜교 지표 E7)"], "after": "10초 뒤 생존(체력 42%)", "micro": null, "checks": [], "clip": "clips/trade_8470577417_1215_Gragas.mp4", "at": 7.0, "src": "new"}];
+const KIND = { flash: "예상 밖 점멸", danger: "위험에서 생존", trade: "킬 없는 딜교환" };
+const VERD = [["yes", "명장면이다"], ["weak", "괜찮지만 약함"], ["no", "아니다"], ["error", "잘못 잡음 (아무 일 없음)"]];
+const RSN = [["right", "이유가 맞음"], ["partly", "일부만 맞음"], ["wrong", "이유가 틀림"]];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+let mine = {}, nick = "", filter = "all", db = null, uid = null, others = {};
+function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+try { mine = JSON.parse(load("verdicts") || "{}") || {}; } catch (e) { mine = {}; }
+nick = load("nick") || "";
+$("nick").value = nick;
+$("saveMode").textContent = window.COLLECT_URL ? "저장을 누르면 판정이 바로 전달됩니다." : "판정은 이 휴대폰에 저장되고, 맨 아래 버튼으로 보냅니다.";
+
+function drawList() {
+  const n = Object.keys(mine).length;
+  $("count").textContent = `판정 ${n} / ${DATA.length}`;
+  $("prog").style.width = `${n / DATA.length * 100}%`;
+  const rows = DATA.map((x, i) => [x, i]).filter(([x]) => filter === "all" || (filter === "todo" ? !mine[x.id] : x.kind === filter));
+  $("list").innerHTML = rows.map(([x, i]) => {
+    const v = mine[x.id];
+    const label = v ? (VERD.find(a => a[0] === v.v) || ["", ""])[1] : "";
+    const pill = v ? `<span class="pill ${esc(v.v)}">${esc(label)}</span>` : (x.checks.some(c => !c.startsWith("정밀")) ? `<span class="pill flag">AI도 의심</span>` : "");
+    return `<button class="item" data-i="${i}"><span class="t">${x.no}경기<br>${mmss(x.t)}</span><span class="h">${esc(x.headline.split(" — ")[0])}<small>${KIND[x.kind]}</small></span>${pill}</button>`;
+  }).join("") || `<p class="lede">이 목록은 다 봤습니다.</p>`;
+}
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.k;
+  document.querySelectorAll(".tab").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+  drawList();
+}));
+$("list").addEventListener("click", e => { const b = e.target.closest(".item"); if (b) openItem(+b.dataset.i); });
+$("nick").addEventListener("change", () => { nick = $("nick").value.trim(); store("nick", nick); push(); });
+
+let cur = -1, pick = {};
+function openItem(i) {
+  cur = i; const x = DATA[i]; const v = mine[x.id] || {};
+  pick = { v: v.v, r: v.r };
+  const why = x.why.length ? x.why.map(w => `<li>${esc(w)}</li>`).join("") : "<li>한 가지 뚜렷한 이유 없이 여러 조건이 조금씩 겹침</li>";
+  const checks = x.checks.filter(c => !c.startsWith("정밀"));
+  const src = x.src === "new" ? "검토용으로 새로 촬영한 게임 화면" : "하이라이트 영상에서 잘라낸 장면";
+  $("detail").innerHTML = `
+    <div class="top"><button class="small" id="back">← 목록</button><span class="others">${i + 1} / ${DATA.length}</span></div>
+    <div style="display:grid;gap:4px"><div class="eyebrow">${KIND[x.kind]} · ${x.no}경기 ${mmss(x.t)}</div><h1 style="font-size:19px">${esc(x.headline)}</h1></div>
+    <section class="card"><h3>AI가 고른 이유</h3><ul>${why}</ul></section>
+    <section class="card"><h3>그 순간 AI가 본 상황</h3><div>${esc(x.situation)}</div>${x.micro ? `<div class="others">${esc(x.micro)}</div>` : ""}</section>
+    ${checks.length ? `<section class="card warn"><h3 style="color:inherit">AI가 스스로 의심하는 점</h3><ul>${checks.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>` : ""}
+    <video id="v" src="${esc(x.clip)}" controls playsinline preload="metadata"></video>
+    <div class="vnote">${src} · 문제의 순간은 ${Math.max(0, x.at).toFixed(0)}초쯤 <button class="small" id="jump">그 2초 전부터 보기</button></div>
+    <section class="card"><h3>이후 10초에 일어난 일</h3><div>${esc(x.after)}</div></section>
+    <section class="card">
+      <h3>이 장면은</h3>
+      <div class="choices" id="cv">${VERD.map(a => `<button class="choice" data-v="${a[0]}" aria-pressed="${pick.v === a[0]}">${a[1]}</button>`).join("")}</div>
+      <h3>AI가 고른 이유는</h3>
+      <div class="choices three" id="cr">${RSN.map(a => `<button class="choice" data-r="${a[0]}" aria-pressed="${pick.r === a[0]}">${a[1]}</button>`).join("")}</div>
+      <textarea id="note" rows="2" placeholder="한 줄 메모 (선택): 뭐가 좋았는지, 왜 아닌지">${esc(v.note || "")}</textarea>
+      <div class="bar"><button id="prev">이전</button><button class="primary" id="save">저장하고 다음</button></div>
+      <div class="status" id="st"></div>
+      <div class="others" id="oth"></div>
+    </section>`;
+  $("listView").hidden = true; $("intro").hidden = true; $("nameCard").hidden = true; $("detail").hidden = false; window.scrollTo(0, 0);
+  $("back").onclick = closeItem;
+  $("prev").onclick = () => openItem(Math.max(0, cur - 1));
+  $("jump").onclick = () => { const vd = $("v"); vd.currentTime = Math.max(0, x.at - 2); vd.play().catch(() => {}); };
+  $("cv").onclick = e => { const b = e.target.closest("[data-v]"); if (!b) return; pick.v = b.dataset.v; $("cv").querySelectorAll("button").forEach(o => o.setAttribute("aria-pressed", String(o === b))); };
+  $("cr").onclick = e => { const b = e.target.closest("[data-r]"); if (!b) return; pick.r = b.dataset.r; $("cr").querySelectorAll("button").forEach(o => o.setAttribute("aria-pressed", String(o === b))); };
+  $("save").onclick = save;
+  showOthers();
+}
+function closeItem() { $("detail").hidden = true; $("detail").innerHTML = ""; $("listView").hidden = false; $("intro").hidden = false; $("nameCard").hidden = false; cur = -1; drawList(); }
+function showOthers() {
+  const x = DATA[cur]; if (!x || !mine[x.id] || !$("oth")) return;
+  const c = {};
+  Object.entries(others).forEach(([id, d]) => { const it = d.items && d.items[x.id]; if (id !== uid && it) c[it.v] = (c[it.v] || 0) + 1; });
+  const s = VERD.filter(a => c[a[0]]).map(a => `${a[1]} ${c[a[0]]}명`).join(" · ");
+  $("oth").textContent = s ? `다른 사람 판정: ${s}` : "";
+}
+function device() {
+  let d = load("device");
+  if (!d) { d = Math.random().toString(36).slice(2, 10); store("device", d); }
+  return d;
+}
+function send(id) {
+  const url = window.COLLECT_URL;
+  if (!url) return;
+  const v = mine[id];
+  const body = JSON.stringify({ device: device(), nick, id, verdict: v.v, reason: v.r, note: v.note, at: v.at });
+  try { fetch(url, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body }).catch(() => {}); } catch (e) {}
+}
+async function save() {
+  const x = DATA[cur];
+  if (!pick.v) { $("st").textContent = "먼저 '이 장면은'에서 하나를 골라 주세요."; return; }
+  mine[x.id] = { v: pick.v, r: pick.r || "", note: $("note").value.trim(), at: new Date().toISOString() };
+  store("verdicts", JSON.stringify(mine));
+  send(x.id);
+  const next = DATA.findIndex((y, j) => j > cur && !mine[y.id]);
+  if (next >= 0) openItem(next); else closeItem();
+}
+let pushing = Promise.resolve();
+function push() {
+  if (!db || !uid) return pushing;
+  pushing = pushing.then(() => db.doc("verdicts/" + uid).set({ nick: nick || "", items: mine, updated: new Date().toISOString() }))
+    .then(() => { $("saveMode").textContent = "공유 저장소에 저장됨"; })
+    .catch(() => { $("saveMode").textContent = "공유 저장이 안 되는 환경입니다. 이 기기에는 저장되니 다 본 뒤 '결과 복사'로 보내 주세요."; });
+  return pushing;
+}
+function resultText() {
+  const lines = [`[SEL26 명장면 판정] ${nick || "이름 없음"} · ${Object.keys(mine).length}개`];
+  DATA.forEach(x => { const v = mine[x.id]; if (v) lines.push(`${x.id}\t${v.v}\t${v.r}\t${(v.note || "").replace(/\s+/g, " ")}`); });
+  const text = lines.join("\n");
+  $("copyText").textContent = text; $("copyText").hidden = false;
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents($("copyText")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("copyBtn").textContent = "선택됨 · 길게 눌러 복사"; };
+  try { navigator.clipboard.writeText(text).then(() => { $("copyBtn").textContent = "복사됨"; }).catch(fallback); } catch (e) { fallback(); }
+});
+drawList();
+
+</script>
+</body></html>
