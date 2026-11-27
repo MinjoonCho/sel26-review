@@ -201,6 +201,8 @@ function copyResult() {
   const fallback = () => { const r = document.createRange(); r.selectNodeContents($("copyText")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("copyBtn").textContent = "선택됨 · 길게 눌러 복사"; };
   try { navigator.clipboard.writeText(text).then(() => { $("copyBtn").textContent = "복사됨"; }).catch(fallback); } catch (e) { fallback(); }
 }
+// with the collector on, every save already reaches the sheet: no send box
+if (window.COLLECT_URL) $("copyBox").hidden = true;
 $("copyBtn").addEventListener("click", copyResult);
 $("shareBtn").addEventListener("click", async () => {
   const text = resultText();
