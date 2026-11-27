@@ -189,21 +189,23 @@ async function save() {
   const next = DATA.findIndex((y, j) => j > cur && !mine[y.id]);
   if (next >= 0) openItem(next); else closeItem();
 }
-let pushing = Promise.resolve();
-function push() {
-  if (!db || !uid) return pushing;
-  pushing = pushing.then(() => db.doc("verdicts/" + uid).set({ nick: nick || "", items: mine, updated: new Date().toISOString() }))
-    .then(() => { $("saveMode").textContent = "공유 저장소에 저장됨"; })
-    .catch(() => { $("saveMode").textContent = "공유 저장이 안 되는 환경입니다. 이 기기에는 저장되니 다 본 뒤 '결과 복사'로 보내 주세요."; });
-  return pushing;
-}
+function push() {}
 function resultText() {
   const lines = [`[SEL26 명장면 판정] ${nick || "이름 없음"} · ${Object.keys(mine).length}개`];
   DATA.forEach(x => { const v = mine[x.id]; if (v) lines.push(`${x.id}\t${v.v}\t${v.r}\t${(v.note || "").replace(/\s+/g, " ")}`); });
-  const text = lines.join("\n");
+  return lines.join("\n");
+}
+function copyResult() {
+  const text = resultText();
   $("copyText").textContent = text; $("copyText").hidden = false;
   const fallback = () => { const r = document.createRange(); r.selectNodeContents($("copyText")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("copyBtn").textContent = "선택됨 · 길게 눌러 복사"; };
   try { navigator.clipboard.writeText(text).then(() => { $("copyBtn").textContent = "복사됨"; }).catch(fallback); } catch (e) { fallback(); }
+}
+$("copyBtn").addEventListener("click", copyResult);
+$("shareBtn").addEventListener("click", async () => {
+  const text = resultText();
+  if (navigator.share) { try { await navigator.share({ title: "SEL26 명장면 판정", text }); return; } catch (e) { if (e && e.name === "AbortError") return; } }
+  copyResult();
 });
 drawList();
 
